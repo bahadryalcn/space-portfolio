@@ -15,7 +15,7 @@ class AudioService {
 
       // Initialize Background Music
       // Using remote audio file
-      this.bgm = new Audio("https://media1.vocaroo.com/mp3/1nutU9vjEot0");
+      this.bgm = new Audio("https://res.cloudinary.com/dqkjpwrwp/video/upload/v1763768613/music_w3izoa.wav");
       this.bgm.loop = true;
       this.bgm.volume = 0.5;
       this.bgm.preload = "auto";
