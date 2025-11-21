@@ -14,8 +14,8 @@ class AudioService {
       this.masterGain.gain.value = 0.4;
 
       // Initialize Background Music
-      // Path is relative to index.html (root)
-      this.bgm = new Audio("music.wav");
+      // Using remote audio file
+      this.bgm = new Audio("https://media1.vocaroo.com/mp3/1nutU9vjEot0");
       this.bgm.loop = true;
       this.bgm.volume = 0.5;
       this.bgm.preload = "auto";
