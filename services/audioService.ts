@@ -17,7 +17,7 @@ class AudioService {
       // Using remote audio file
       this.bgm = new Audio("https://res.cloudinary.com/dqkjpwrwp/video/upload/v1763768613/music_w3izoa.wav");
       this.bgm.loop = true;
-      this.bgm.volume = 0.5;
+      this.bgm.volume = 0.1;
       this.bgm.preload = "auto";
 
       // Attach error handler
@@ -147,6 +147,19 @@ class AudioService {
 
     osc.start();
     osc.stop(this.ctx.currentTime + 0.6);
+  }
+
+  reset() {
+    // Stop and reset background music
+    if (this.bgm) {
+      this.bgm.pause();
+      this.bgm.currentTime = 0;
+    }
+
+    // Resume audio context if it was suspended
+    if (this.ctx?.state === "suspended" && !this.isMuted) {
+      this.ctx.resume();
+    }
   }
 }
 

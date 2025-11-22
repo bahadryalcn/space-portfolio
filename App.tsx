@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import GameScene from './components/GameScene';
 import { GameState, InputState } from './types';
-import { MILESTONES, SKILLS, GAME_CONFIG } from './constants';
+import { MILESTONES, SKILLS, CORE_SKILLS, PROFESSIONAL_SKILLS, ADDITIONAL_SKILLS, GAME_CONFIG } from './constants';
 import { audioService } from './services/audioService';
+import { VolumeX, Volume2, Pause, Play, RotateCcw, Mail, Linkedin, Github, Phone, Zap, Briefcase, Wrench } from 'lucide-react';
 
 const App: React.FC = () => {
   // --- STATE ---
@@ -96,6 +97,9 @@ const App: React.FC = () => {
 
   // --- CONTROL FUNCTIONS ---
   const handleRestart = () => {
+    // Reset audio service
+    audioService.reset();
+
     // Remount game component
     setGameKey(prev => prev + 1);
     setScrollPos(0);
@@ -327,21 +331,40 @@ const App: React.FC = () => {
               <p className="mb-16 text-6xl md:text-9xl star-wars-font tracking-tighter">MISSION ACCOMPLISHED</p>
               <p className="text-4xl md:text-7xl mb-12 tracking-wide">Bahadır Halil YALCIN</p>
               <p className="text-2xl md:text-4xl mb-16 terminal-font text-justify leading-normal md:leading-relaxed px-4 md:px-0">
-                A seasoned Senior Software Engineer and Team Lead with over a decade of experience navigating the galaxy of code. 
-                Master of the React Order, Architect of Distributed Systems, and Defender of Clean Code.
+                A seasoned Senior Software Engineer and Team Lead specializing in payment systems and fintech solutions.
+                Architect of Payment Gateways, Master of Distributed Systems, and Champion of Scalable Microservices.
+                8+ years navigating the galaxy of enterprise software with expertise in React, Java, and event-driven architectures.
               </p>
-              <p className="text-4xl mb-6 star-wars-font">SKILL MATRIX</p>
-              <div className="flex flex-wrap justify-center gap-6 mb-16 terminal-font text-xl md:text-3xl text-cyan-300">
-                {SKILLS.map(s => <span key={s}>[{s}]</span>)}
+              <p className="text-4xl mb-6 star-wars-font">CORE COMPETENCIES</p>
+              <div className="flex flex-wrap justify-center gap-4 mb-8 terminal-font text-2xl md:text-4xl text-yellow-400">
+                {CORE_SKILLS.map(s => <span key={s} className="font-bold">[{s}]</span>)}
+              </div>
+
+              <p className="text-3xl mb-4 star-wars-font mt-12">PROFESSIONAL ARSENAL</p>
+              <div className="flex flex-wrap justify-center gap-3 mb-16 terminal-font text-lg md:text-2xl text-cyan-300">
+                {PROFESSIONAL_SKILLS.map(s => <span key={s}>[{s}]</span>)}
               </div>
               
               {/* CONTACT INFO - Bottom of Scroll */}
               <div className="mt-32 pb-64">
                 <p className="text-4xl mb-6 star-wars-font animate-pulse">CONTACT CHANNEL</p>
-                <div className="text-2xl md:text-3xl terminal-font text-white leading-loose cursor-pointer">
-                  <a href="mailto:bahadir@example.com" className="block hover:text-cyan-400 transition-colors">bahadir@example.com</a>
-                  <a href="#" className="block hover:text-cyan-400 transition-colors">linkedin.com/in/bahadir</a>
-                  <a href="#" className="block hover:text-cyan-400 transition-colors">github.com/bahadir</a>
+                <div className="text-xl md:text-2xl terminal-font text-white leading-loose cursor-pointer">
+                  <a href="mailto:bahadrhllyalcn@gmail.com" className="flex items-center gap-3 hover:text-cyan-400 transition-colors mb-3">
+                    <Mail size={28} className="flex-shrink-0" />
+                    <span>bahadrhllyalcn@gmail.com</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/bahadryalcn" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-cyan-400 transition-colors mb-3">
+                    <Linkedin size={28} className="flex-shrink-0" />
+                    <span>linkedin.com/in/bahadryalcn</span>
+                  </a>
+                  <a href="https://github.com/bahadryalcn" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-cyan-400 transition-colors mb-3">
+                    <Github size={28} className="flex-shrink-0" />
+                    <span>github.com/bahadryalcn</span>
+                  </a>
+                  <a href="tel:+905320629756" className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
+                    <Phone size={28} className="flex-shrink-0" />
+                    <span>+90 532 062 97 56</span>
+                  </a>
                 </div>
                 <p className="text-lg md:text-xl text-gray-500 mt-12">The Force is strong with this one.</p>
               </div>
@@ -369,30 +392,30 @@ const App: React.FC = () => {
       {/* --- 4. CONTROL PANEL (Bottom Right) --- */}
       <div className="absolute bottom-4 right-4 z-[60] flex flex-col gap-2 items-end pointer-events-auto">
         <div className="flex gap-2">
-          <button 
+          <button
             onClick={toggleMute}
             className="w-10 h-10 bg-gray-900/80 border border-cyan-500 text-cyan-400 rounded hover:bg-cyan-900/50 flex items-center justify-center"
             title="Mute Audio"
           >
-            {isMuted ? '🔇' : '🔊'}
+            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
           </button>
-          
+
           {gameState.gamePhase !== 'start' && (
-             <button 
+             <button
                onClick={togglePause}
                className="w-10 h-10 bg-gray-900/80 border border-cyan-500 text-cyan-400 rounded hover:bg-cyan-900/50 flex items-center justify-center"
                title={gameState.isPaused ? "Resume" : "Pause"}
              >
-               {gameState.isPaused ? '▶' : '⏸'}
+               {gameState.isPaused ? <Play size={20} /> : <Pause size={20} />}
              </button>
           )}
 
-          <button 
+          <button
             onClick={handleRestart}
             className="w-10 h-10 bg-gray-900/80 border border-yellow-500 text-yellow-400 rounded hover:bg-yellow-900/50 flex items-center justify-center"
             title="Restart Mission"
           >
-            ↻
+            <RotateCcw size={20} />
           </button>
         </div>
         
@@ -422,28 +445,119 @@ const App: React.FC = () => {
                        <p><span className="text-gray-500">NAME:</span> Bahadır Halil YALCIN</p>
                        <p><span className="text-gray-500">CLASS:</span> Senior Software Engineer</p>
                        <p><span className="text-gray-500">RANK:</span> Team Lead</p>
-                       <p><span className="text-gray-500">BASE:</span> Earth (Remote Capable)</p>
+                       <p><span className="text-gray-500">BASE:</span> Istanbul, Turkey (Remote Capable)</p>
+                       <p><span className="text-gray-500">EDUCATION:</span> M.Sc. Software Engineering</p>
+                       <p><span className="text-gray-500">EXPERIENCE:</span> 8+ Years</p>
                     </div>
                     <div>
                        <h3 className="text-cyan-400 text-xl mb-4 border-b border-cyan-500/30 pb-2">CONTACT</h3>
-                       <p><a href="mailto:bahadir@example.com" className="hover:text-white">✉ bahadir@example.com</a></p>
-                       <p><a href="#" className="hover:text-white">🔗 linkedin.com/in/bahadir</a></p>
-                       <p><a href="#" className="hover:text-white">🐙 github.com/bahadir</a></p>
+                       <p className="mb-2">
+                         <a href="mailto:bahadrhllyalcn@gmail.com" className="hover:text-white flex items-center gap-2">
+                           <Mail size={16} className="inline" /> bahadrhllyalcn@gmail.com
+                         </a>
+                       </p>
+                       <p className="mb-2">
+                         <a href="https://www.linkedin.com/in/bahadryalcn" target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center gap-2">
+                           <Linkedin size={16} className="inline" /> linkedin.com/in/bahadryalcn
+                         </a>
+                       </p>
+                       <p className="mb-2">
+                         <a href="https://github.com/bahadryalcn" target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center gap-2">
+                           <Github size={16} className="inline" /> github.com/bahadryalcn
+                         </a>
+                       </p>
+                       <p>
+                         <a href="tel:+905320629756" className="hover:text-white flex items-center gap-2">
+                           <Phone size={16} className="inline" /> +90 532 062 97 56
+                         </a>
+                       </p>
                     </div>
                  </div>
 
                  <div className="mt-8">
-                    <h3 className="text-cyan-400 text-xl mb-4 border-b border-cyan-500/30 pb-2">MISSION BRIEF (SUMMARY)</h3>
+                    <h3 className="text-cyan-400 text-xl mb-4 border-b border-cyan-500/30 pb-2">MISSION BRIEF</h3>
                     <p className="mb-4 leading-relaxed">
-                       Experienced engineer specializing in high-performance web applications, distributed systems, and team leadership. 
-                       Proven track record in fintech, gaming, and large-scale enterprise solutions. 
+                       Senior Software Engineer and Team Lead with 8+ years of professional experience specializing in
+                       payment systems, full-stack development, and microservices architecture. Currently leading a
+                       cross-functional team of 10+ engineers at Firisbe, architecting fintech payment solutions.
                     </p>
-                    <div className="flex flex-wrap gap-2 mt-4">
-                       {SKILLS.map(s => (
-                          <span key={s} className="bg-cyan-900/50 border border-cyan-500/30 px-2 py-1 rounded text-xs text-cyan-200">
-                             {s}
-                          </span>
-                       ))}
+                    <p className="mb-4 leading-relaxed">
+                       Proven track record across multiple domains: <span className="text-cyan-300">fintech payment systems</span> (Firisbe - Payment Gateway, Payment Facilitator, SoftPOS, Digital Wallet),
+                       <span className="text-cyan-300"> core banking infrastructure</span> (Digital Commerce Bank - microservices with 99.99% uptime),
+                       and <span className="text-cyan-300">gaming</span> (SpecialWar MMO FPS - 2M+ users). Master's degree in Software Engineering from Chang'an University
+                       (China Government Scholarship recipient).
+                    </p>
+                    <p className="mb-4 leading-relaxed">
+                       <span className="text-cyan-400 font-semibold">Core Tech Stack:</span> React.js, Next.js, TypeScript, Node.js, Java, Express.js, PostgreSQL, MongoDB, Kafka, Payment Systems
+                    </p>
+
+                    <h3 className="text-cyan-400 text-lg mt-6 mb-3 border-b border-cyan-500/30 pb-2">KEY ACHIEVEMENTS</h3>
+                    <ul className="space-y-2 mb-4">
+                       <li className="flex items-start">
+                          <span className="text-cyan-500 mr-2">»</span>
+                          <span>Architected and developed complete payment ecosystem: Payment Gateway, Payment Facilitator, SoftPOS, and Digital Wallet solutions</span>
+                       </li>
+                       <li className="flex items-start">
+                          <span className="text-cyan-500 mr-2">»</span>
+                          <span>Built high-throughput payment processing systems using Kafka for event-driven architecture</span>
+                       </li>
+                       <li className="flex items-start">
+                          <span className="text-cyan-500 mr-2">»</span>
+                          <span>Designed microservices for core banking systems at Digital Commerce Bank with 99.99% uptime</span>
+                       </li>
+                       <li className="flex items-start">
+                          <span className="text-cyan-500 mr-2">»</span>
+                          <span>Founded and scaled SpecialWar MMO FPS game to 2M+ users with 50K+ daily active players</span>
+                       </li>
+                       <li className="flex items-start">
+                          <span className="text-cyan-500 mr-2">»</span>
+                          <span>Leading cross-functional team of 10+ engineers with focus on code quality and best practices</span>
+                       </li>
+                       <li className="flex items-start">
+                          <span className="text-cyan-500 mr-2">»</span>
+                          <span>China Government Scholarship recipient for Master's degree in Software Engineering</span>
+                       </li>
+                    </ul>
+
+                    <h3 className="text-cyan-400 text-lg mt-6 mb-3 border-b border-cyan-500/30 pb-2">TECHNICAL ARSENAL</h3>
+
+                    <div className="mb-4">
+                       <h4 className="text-yellow-400 text-sm mb-2 font-bold flex items-center gap-2">
+                         <Zap size={16} /> CORE EXPERTISE
+                       </h4>
+                       <div className="flex flex-wrap gap-2">
+                          {CORE_SKILLS.map(s => (
+                             <span key={s} className="bg-yellow-900/40 border-2 border-yellow-500/50 px-3 py-1 rounded text-xs text-yellow-200 font-semibold">
+                                {s}
+                             </span>
+                          ))}
+                       </div>
+                    </div>
+
+                    <div className="mb-4">
+                       <h4 className="text-cyan-400 text-sm mb-2 font-bold flex items-center gap-2">
+                         <Briefcase size={16} /> PROFESSIONAL SKILLS
+                       </h4>
+                       <div className="flex flex-wrap gap-2">
+                          {PROFESSIONAL_SKILLS.map(s => (
+                             <span key={s} className="bg-cyan-900/50 border border-cyan-500/40 px-2 py-1 rounded text-xs text-cyan-200">
+                                {s}
+                             </span>
+                          ))}
+                       </div>
+                    </div>
+
+                    <div>
+                       <h4 className="text-gray-400 text-sm mb-2 font-bold flex items-center gap-2">
+                         <Wrench size={16} /> ADDITIONAL COMPETENCIES
+                       </h4>
+                       <div className="flex flex-wrap gap-2">
+                          {ADDITIONAL_SKILLS.map(s => (
+                             <span key={s} className="bg-gray-800/50 border border-gray-600/30 px-2 py-1 rounded text-xs text-gray-300">
+                                {s}
+                             </span>
+                          ))}
+                       </div>
                     </div>
                  </div>
               </div>
