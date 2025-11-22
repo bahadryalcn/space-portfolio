@@ -361,7 +361,7 @@ const App: React.FC = () => {
                     <Github size={28} className="flex-shrink-0" />
                     <span>github.com/bahadryalcn</span>
                   </a>
-                  <a href="tel:+905320629756" className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
+                  <a href="tel:+919756" className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
                     <Phone size={28} className="flex-shrink-0" />
                     <span>+90 532 062 97 56</span>
                   </a>
@@ -467,7 +467,7 @@ const App: React.FC = () => {
                          </a>
                        </p>
                        <p>
-                         <a href="tel:+905320629756" className="hover:text-white flex items-center gap-2">
+                         <a href="tel:+919756" className="hover:text-white flex items-center gap-2">
                            <Phone size={16} className="inline" /> +90 532 062 97 56
                          </a>
                        </p>
